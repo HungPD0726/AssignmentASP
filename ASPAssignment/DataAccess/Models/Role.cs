@@ -11,9 +11,8 @@ namespace ASPAssignment.DataAccess.Models
 
         [Required]
         [StringLength(50)]
-        public string RoleName { get; set; } // Ví dụ: Student, Landlord
+        public string RoleName { get; set; }
 
-        // Quan hệ: 1 Role có nhiều User
         public ICollection<User> Users { get; set; }
     }
 }

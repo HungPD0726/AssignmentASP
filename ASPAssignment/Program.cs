@@ -1,4 +1,4 @@
-using ASPAssignment.DataAccess.Context;
+﻿using ASPAssignment.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -59,6 +59,9 @@ namespace ASPAssignment
             builder.Services.AddScoped<ASPAssignment.Business.ITokenService, ASPAssignment.Business.TokenService>();
             builder.Services.AddScoped<ASPAssignment.Business.IAdminService, ASPAssignment.Business.AdminService>();
             builder.Services.AddScoped<ASPAssignment.Business.ILandlordService, ASPAssignment.Business.LandlordService>();
+            // Room Repository and Service
+            builder.Services.AddScoped<ASPAssignment.DataAccess.Repositories.IRoomRepository, ASPAssignment.DataAccess.Repositories.RoomRepository>();
+            builder.Services.AddScoped<ASPAssignment.Business.IRoomService, ASPAssignment.Business.RoomService>();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
               .AddJwtBearer(options =>
                 {
