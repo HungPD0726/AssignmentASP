@@ -21,15 +21,17 @@ namespace ASPAssignment.Business
 
         public string Login(LoginModel loginModel)
         {
-            
+
             var user = _context.Users.FirstOrDefault(u => u.Email == loginModel.Email && u.Password == loginModel.Password);
 
             if (user == null)
             {
-                return null; 
+                return null;
             }
 
-       
+            var role = _context.Roles.FirstOrDefault(r => r.RoleID == user.RoleID);
+            string roleName = role != null ? role.RoleName : "Student"; // Mặc định là Student nếu lỗi
+
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
@@ -37,8 +39,7 @@ namespace ASPAssignment.Business
             {
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.NameIdentifier, user.UserID.ToString()),
-                // Bạn có thể thêm Role vào đây nếu muốn
-                // new Claim(ClaimTypes.Role, "Admin") 
+                new Claim(ClaimTypes.Role, roleName) // Thêm role claim để phân quyền
             };
 
             var token = new JwtSecurityToken(
