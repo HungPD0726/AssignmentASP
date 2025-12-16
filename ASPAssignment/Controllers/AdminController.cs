@@ -7,7 +7,7 @@ namespace ASPAssignment.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    // Dòng này cực quan trọng: Chỉ ai có Role là 'Admin' mới được vào tất cả các hàm bên dưới
+    // Chỉ ai có Role là 'Admin' mới được vào tất cả các hàm bên dưới
     [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {

@@ -14,30 +14,30 @@ namespace ASPAssignment.DataAccess.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<House> Houses { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Landlord> Landlords { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // --- CẤU HÌNH CHO TIỀN TỆ (DECIMAL) ---
 
-            // Bảng House: Giá điện và Giá nước
             modelBuilder.Entity<House>()
                 .Property(h => h.PowerPrice)
-                .HasColumnType("decimal(18, 2)"); // Ví dụ: 12345.67
+                .HasColumnType("decimal(18, 2)"); 
 
             modelBuilder.Entity<House>()
                 .Property(h => h.WaterPrice)
                 .HasColumnType("decimal(18, 2)");
 
-            // Bảng Room: Giá phòng
             modelBuilder.Entity<Room>()
                 .Property(r => r.Price)
                 .HasColumnType("decimal(18, 2)");
 
             modelBuilder.Entity<Room>()
                 .Property(r => r.Area)
-                .HasColumnType("float"); // Diện tích có thể dùng float
+                .HasColumnType("float"); 
         }
     }
 }

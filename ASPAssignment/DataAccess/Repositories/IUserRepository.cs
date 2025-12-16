@@ -8,5 +8,7 @@ namespace ASPAssignment.DataAccess.Repositories
         User GetUserById(int id);
         void Update(User user);
         void Delete(int id);
+        Task<User?> GetByEmailAsync(string email);
+        Task<User?> GetByIdAsync(int id);
     }
 }
