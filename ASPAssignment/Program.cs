@@ -59,6 +59,11 @@ namespace ASPAssignment
             builder.Services.AddScoped<ASPAssignment.Business.ITokenService, ASPAssignment.Business.TokenService>();
             builder.Services.AddScoped<ASPAssignment.Business.IAdminService, ASPAssignment.Business.AdminService>();
             builder.Services.AddScoped<ASPAssignment.Business.ILandlordService, ASPAssignment.Business.LandlordService>();
+            // Đăng ký UserService (cho ProfileController và các controller khác)
+            builder.Services.AddScoped<ASPAssignment.Business.IUserService, ASPAssignment.Business.UserService>();
+
+            // Đăng ký UserRepository (vì UserService phụ thuộc vào nó)
+            builder.Services.AddScoped<ASPAssignment.DataAccess.Repositories.IUserRepository, ASPAssignment.DataAccess.Repositories.UserRepository>();
             // Room Repository and Service
             builder.Services.AddScoped<ASPAssignment.DataAccess.Repositories.IRoomRepository, ASPAssignment.DataAccess.Repositories.RoomRepository>();
             builder.Services.AddScoped<ASPAssignment.Business.IRoomService, ASPAssignment.Business.RoomService>();

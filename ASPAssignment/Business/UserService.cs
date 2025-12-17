@@ -47,5 +47,40 @@ namespace ASPAssignment.Business
             _userRepository.Delete(id);
             return true;
         }
+
+        public UserProfileViewModel GetUserProfile(int userId)
+        {
+            var user = _userRepository.GetUserById(userId);
+            if (user == null) return null;
+
+            return new UserProfileViewModel
+            {
+                UserID = user.UserID,
+                Email = user.Email,
+                DisplayName = user.DisplayName,
+                PhoneNumber = user.PhoneNumber,
+                RoleName = user.Role?.RoleName,
+                IdentityCardFrontSideImageLink = user.IdentityCardFrontSideImageLink,
+                IdentityCardBackSideImageLink = user.IdentityCardBackSideImageLink
+            };
+        }
+
+        public bool UpdateUserProfile(int userId, UpdateProfileModel model)
+        {
+            var user = _userRepository.GetUserById(userId);
+            if (user == null) return false;
+
+            user.DisplayName = model.DisplayName;
+            user.PhoneNumber = model.PhoneNumber;
+
+            if (!string.IsNullOrEmpty(model.IdentityCardFrontSideImageLink))
+                user.IdentityCardFrontSideImageLink = model.IdentityCardFrontSideImageLink;
+
+            if (!string.IsNullOrEmpty(model.IdentityCardBackSideImageLink))
+                user.IdentityCardBackSideImageLink = model.IdentityCardBackSideImageLink;
+
+            _userRepository.Update(user);
+            return true;
+        }
     }
 }
